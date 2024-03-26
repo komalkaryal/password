@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    environment{
+        FIREBASE_DEPLOY_TOKEN = credentials('Firebase-Token')
+    }
+stages{
+   
+        stage('Testing Env'){
+            steps{
+                
+                sh 'firebase  deploy -P password-test-7366a --token "$FIREBASE_DEPLOY_TOKEN"'
+
+                }
+            }
+
+        stage('Staging Env'){
+            steps{
+               
+                 sh 'firebase  deploy -P password-stage --token "$FIREBASE_DEPLOY_TOKEN"'
+                echo "Staging"
+                }
+            }
+
+        stage('Production Env'){
+            steps{
+               
+                 sh 'firebase  deploy -P password-production-61fcd --token "$FIREBASE_DEPLOY_TOKEN"'
+                echo "Production"
+                }
+        }
+}
+}
+
